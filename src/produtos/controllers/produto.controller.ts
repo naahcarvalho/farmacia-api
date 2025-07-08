@@ -30,11 +30,12 @@ export default class ProdutoController {
         return this.produtoService.create(produto);
     }
 
-    @Put()
+    @Put("/:id")
     @HttpCode(HttpStatus.OK)
-    update(@Body() produto: Produto): Promise<Produto>{
+    update(@Param('id', ParseIntPipe) id: number, @Body() produto: Produto): Promise<Produto> {
+        produto.id = id; 
         return this.produtoService.update(produto);
-    }
+}
 
     @Delete('/:id')
     @HttpCode(HttpStatus.NO_CONTENT)
